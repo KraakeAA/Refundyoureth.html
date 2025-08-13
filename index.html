@@ -14,12 +14,21 @@
             text-align: center;
         }
         .header {
-            background-color: #1a73e8;
+            background: url('/images/header-art.png') no-repeat center center;
+            background-size: cover;
             color: white;
-            padding: 20px;
+            padding: 100px 20px 20px;
+            position: relative;
         }
         .header img {
             max-width: 150px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+        }
+        .header h1 {
+            margin: 10px 0;
+            font-size: 2em;
         }
         .section {
             max-width: 600px;
@@ -61,7 +70,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="/images/logo.png" alt="Dust Sweeper Logo">
+        <img src="/images/logo.png" alt="Ethereum Dust Sweeper Logo">
         <h1>Ethereum Dust Sweeper</h1>
     </div>
     <div class="section">
@@ -82,7 +91,6 @@
     <script src="https://unpkg.com/@web3modal/ethereum@2.7.1/dist/index.js"></script>
     <script src="https://unpkg.com/@walletconnect/ethereum-provider@2.7.1/dist/index.umd.js"></script>
     <script>
-        // Initialize Web3Modal
         const chains = [
             {
                 chainId: 1, // Ethereum Mainnet
@@ -115,7 +123,6 @@
         const feeRecipient = '0xYourFeeWalletAddress';
         const minDustValue = 10; // $10 minimum for swaps
 
-        // Whitelist: Stablecoins, major tokens, legit meme coins
         const tokenContracts = [
             { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', name: 'USDT', decimals: 6, permit: false },
             { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', name: 'USDC', decimals: 6, permit: true },
@@ -195,9 +202,8 @@
                     }
                 }
 
-                // Placeholder for unverified tokens
                 dustList.innerHTML += '<p style="color: red;">Unverified tokens may exist. Burn with caution.</p>';
-                burnTokens.push(...dustTokens); // Allow all detected tokens for burns
+                burnTokens.push(...dustTokens);
 
                 if (dustFound) {
                     const claimableEth = (totalValue * 0.85).toFixed(2);
