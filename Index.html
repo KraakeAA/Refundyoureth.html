@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Your ETH - Easily Recover ETH from Your Wallet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        #logo {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 10px 0;
+        }
+        h2 {
+            margin: 5px 0;
+        }
+        .referral {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        .section {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .stat {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            font-size: 24px;
+            margin: 10px;
+        }
+        .stat span {
+            font-size: 36px;
+            display: block;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .faq {
+            margin-top: 40px;
+        }
+        .social-links {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .social-links a {
+            margin: 0 10px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        #connect-wallet {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #connect-wallet:hover {
+            background-color: #45a049;
+        }
+        .note {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img id="logo" src="https://via.placeholder.com/200x100?text=Refund+Your+ETH+Logo" alt="Refund Your ETH Logo">
+        <h1>Ethereum Blockchain holds your ETH</h1>
+        <h2>Claim it Back!</h2>
+        <p class="referral">💸 Earn massive 35% from referrals — share your link with friends and earn more ETH!</p>
+    </header>
+
+    <div class="section">
+        <button id="connect-wallet">Connect Wallet</button>
+    </div>
+
+    <div class="section stats">
+        <div class="stat">
+            👤 Total Users<span>181,651</span>
+        </div>
+        <div class="stat">
+            🔒 Accounts Closed<span>1,442,685</span>
+        </div>
+        <div class="stat">
+            💰 ETH Refunded<span>2,942.04</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Global Transaction History</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Wallet</th>
+                        <th>Accounts</th>
+                        <th>Refunded ETH</th>
+                        <th>TX Signature</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample data adapted for Ethereum; in a real site, this would be dynamic -->
+                    <tr>
+                        <td>0x1234...abcd</td>
+                        <td>3</td>
+                        <td>0.05</td>
+                        <td>0x5678...efgh</td>
+                        <td>August 8, 2025</td>
+                    </tr>
+                    <tr>
+                        <td>0xabcd...1234</td>
+                        <td>7</td>
+                        <td>0.12</td>
+                        <td>0xijkl...mnop</td>
+                        <td>August 8, 2025</td>
+                    </tr>
+                    <tr>
+                        <td>0xdef0...5678</td>
+                        <td>2</td>
+                        <td>0.03</td>
+                        <td>0xqrst...uvwx</td>
+                        <td>August 7, 2025</td>
+                    </tr>
+                    <!-- Add more rows as needed for similarity -->
+                    <tr>
+                        <td>0x9876...5432</td>
+                        <td>4</td>
+                        <td>0.08</td>
+                        <td>0xyzab...cdef</td>
+                        <td>August 7, 2025</td>
+                    </tr>
+                    <tr>
+                        <td>0x1111...2222</td>
+                        <td>5</td>
+                        <td>0.10</td>
+                        <td>0x3333...4444</td>
+                        <td>August 6, 2025</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section faq">
+        <h2>Frequently Asked Questions</h2>
+        <h4>How does this work?</h4>
+        <p>Ethereum Blockchain charges fees for unused token accounts, and even after selling tokens, accounts may hold residual fees. This service closes these accounts, refunds ETH, and takes a 15% donation for operational costs.</p>
+        <p class="note">A small donation is included for server, RPC, and development expenses.</p>
+    </div>
+
+    <footer class="social-links">
+        <a href="https://t.me/refundyoursol">Telegram</a>
+        <a href="https://x.com/refundyoursol">X</a>
+        <a href="https://discord.gg/nu4TkeCXFs">Discord</a>
+    </footer>
+
+    <script>
+        // Basic JavaScript for wallet connection using Ethereum provider (e.g., MetaMask)
+        // In a full implementation, integrate with ethers.js or web3.js for scanning and closing accounts
+        const connectButton = document.getElementById('connect-wallet');
+
+        connectButton.addEventListener('click', async () => {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    connectButton.textContent = `Connected: ${accounts[0].slice(0, 6)}...${accounts[0].slice(-4)}`;
+                    // Placeholder for further functionality: scan for unused accounts, display refund button, etc.
+                    alert('Wallet connected! In a real app, we would now scan for refundable ETH.');
+                    // Example: After connection, you could fetch data or prompt for transactions
+                } catch (error) {
+                    console.error(error);
+                    alert('Failed to connect wallet.');
+                }
+            } else {
+                alert('Please install an Ethereum wallet like MetaMask.');
+            }
+        });
+    </script>
+
+</body>
+</html>
