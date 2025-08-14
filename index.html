@@ -20,7 +20,7 @@
             text-align: center;
         }
         .header {
-    background: transparent; /* Changed to transparent to show background image */
+    background: transparent; /* Made transparent to show your background image */
     color: white;
     padding: 80px 20px 20px;
     position: relative;
@@ -168,7 +168,7 @@
                         dustFound = true;
                         dustTokens.push(token.address);
                         const balanceFormatted = ethers.utils.formatUnits(balance, token.decimals);
-                        const value = parseFloat(balanceFormatted) * 1; // Placeholder: $1 per token
+                        const value = parseFloat(balanceFormatted) * 1;
                         totalValue += value;
                         dustList.innerHTML += `<p>${token.name}: ${balanceFormatted} ($${value.toFixed(2)})</p>`;
 
